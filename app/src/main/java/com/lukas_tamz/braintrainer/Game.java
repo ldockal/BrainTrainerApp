@@ -6,11 +6,13 @@ package com.lukas_tamz.braintrainer;
 
 public class Game {
 
+    private String id;
     private String title;
     private String desc;
     private String imgName;
 
-    public Game(String title, String desc, String imgName) {
+    public Game(String id, String title, String desc, String imgName) {
+        this.id = id;
         this.title = title;
         this.desc = desc;
         this.imgName = imgName;
@@ -40,5 +42,13 @@ public class Game {
 
     public void setImgName(String imgName) {
         this.imgName = imgName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
