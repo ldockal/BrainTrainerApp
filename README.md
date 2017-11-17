@@ -6,10 +6,8 @@ Hra bude obsahovat několik miniher, které budou pomáhat cvičit paměť a poz
 
 # Jednotlyvé minihry
 ## Mřížka s kostiček
-- Cílem hry je v mřížce vybrat kostičky ve stejném počadí ve kterém se zobrazily
+- Cílem hry je v mřížce vybrat kostičky ve stejném počadí ve kterém se zobrazily.
 ## Matematické výrazy
-- Na obrazovce se budou zobrazovat postupně matematické od jednoduších až po složitější (záleží na úrovni). Cílem bude napsat správný výsledek než upline čas, ktérý se s narůstající úrovní bude zkracovat
+- Na obrazovce se budou zobrazovat postupně matematické od jednoduších až po složitější (záleží na úrovni). Cílem bude napsat správný výsledek než upline čas, ktérý se s narůstající úrovní bude zkracovat.
 ## Najdi obrázek
 - Na začátku se zobrazí několik obrázků a každé další kolo se jeden přidá pričemž se bude náhodně volit umístění všech obrázků. Cílem hry je označit nově přidaný obrázek.
-
-# Obrázky ze hry
