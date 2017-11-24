@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.lukas_tamz.braintrainer.holders.ListEntryHolder;
+import com.lukas_tamz.braintrainer.models.GameInfo;
 import com.lukas_tamz.braintrainer.utils.Utils;
 
 import java.util.List;
@@ -16,17 +17,17 @@ import java.util.List;
  * Created by ldockal on 11/17/2017.
  */
 
-public class CustomListView extends ArrayAdapter<Game> {
+public class CustomListView extends ArrayAdapter<GameInfo> {
 
     private Context context;
     private int layoutResourceId;
-    private List<Game> gameList;
+    private List<GameInfo> gameInfoList;
 
-    public CustomListView(Context context, int layoutResourceId, List<Game> objects) {
+    public CustomListView(Context context, int layoutResourceId, List<GameInfo> objects) {
         super(context, layoutResourceId, objects);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-        this.gameList = objects;
+        this.gameInfoList = objects;
     }
 
     @Override
@@ -43,21 +44,21 @@ public class CustomListView extends ArrayAdapter<Game> {
             holder = (ListEntryHolder) row.getTag();
         }
 
-        Game game = gameList.get(position);
-        initGolderWithGameValues(holder, game);
+        GameInfo gameInfo = gameInfoList.get(position);
+        initGolderWithGameValues(holder, gameInfo);
 
         return row;
     }
 
 
-    private void initGolderWithGameValues(ListEntryHolder holder, Game game) {
-        holder.gameTitle.setText(game.getTitle());
-        holder.gameDesc.setText(game.getDesc());
-        int imgId = Utils.getImageIdFromDrawable(context, game.getImgName());
+    private void initGolderWithGameValues(ListEntryHolder holder, GameInfo gameInfo) {
+        holder.gameTitle.setText(gameInfo.getTitle());
+        holder.gameDesc.setText(gameInfo.getDesc());
+        int imgId = Utils.getImageIdFromDrawable(context, gameInfo.getImgName());
         if (imgId == 0) {
-            Log.d("img", game.getImgName() + " not found");
+            Log.d("img", gameInfo.getImgName() + " not found");
         } else {
-            Log.d("img", game.getImgName() + " imgId: " + imgId);
+            Log.d("img", gameInfo.getImgName() + " imgId: " + imgId);
             holder.gameImg.setImageResource(imgId);
         }
 

@@ -3,4 +3,9 @@
     <string name="about">About</string>
     <string name="settings">Settings</string>
     <string name="exit">Exit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="actualLevel">Aktualni level</string>
+    <string name="actualLevelDefault">1</string>
 </resources>

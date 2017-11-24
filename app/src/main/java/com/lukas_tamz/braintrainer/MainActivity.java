@@ -8,11 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.lukas_tamz.braintrainer.exceptions.GamesNotFoundException;
+import com.lukas_tamz.braintrainer.models.GameInfo;
 import com.lukas_tamz.braintrainer.parsers.AbstractXmlParser;
 import com.lukas_tamz.braintrainer.parsers.GameListParser;
+import com.lukas_tamz.braintrainer.utils.Utils;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     ListView listView;
-    List<Game> gameList;
+    List<GameInfo> gameInfoList;
 
 
     @Override
@@ -46,13 +47,13 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.options_menu_about) {
-            Toast.makeText(this, "about", Toast.LENGTH_SHORT).show();
+            Utils.displayintToast(this, "about");
         }
         if (item.getItemId() == R.id.options_menu_settings) {
-            Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
+            Utils.displayintToast(this, "settings");
         }
         if (item.getItemId() == R.id.options_menu_exit) {
-            Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
+            Utils.displayintToast(this, "exit");
         }
 
         return super.onOptionsItemSelected(item);
@@ -63,24 +64,24 @@ public class MainActivity extends Activity {
         //dummyInit();
 
         try {
-           XmlResourceParser xmlResourceParser = getResources().getXml(R.xml.games_list);
-            AbstractXmlParser<Game> abstractXmlParser = new GameListParser(xmlResourceParser);
-            gameList = abstractXmlParser.loadObjects();
+            XmlResourceParser xmlResourceParser = getResources().getXml(R.xml.games_list);
+            AbstractXmlParser<GameInfo> abstractXmlParser = new GameListParser(xmlResourceParser);
+            gameInfoList = abstractXmlParser.loadObjects();
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
-        if (gameList != null && !gameList.isEmpty()) {
-            CustomListView customListView = new CustomListView(this, R.layout.minigames_list_item, gameList);
+        if (gameInfoList != null && !gameInfoList.isEmpty()) {
+            CustomListView customListView = new CustomListView(this, R.layout.minigames_list_item, gameInfoList);
             this.listView.setAdapter(customListView);
-        }else {
+        } else {
             throw new GamesNotFoundException("Games list is empty");
         }
 
     }
 
     private void dummyInit() {
-        gameList = new ArrayList<>();
-        gameList.add(new Game("1","title 1", "Desc 1", "img 1"));
-        gameList.add(new Game("2","title 2", "Desc 2", "img 2"));
+        gameInfoList = new ArrayList<>();
+        gameInfoList.add(new GameInfo("1", "title 1", "Desc 1", "img 1"));
+        gameInfoList.add(new GameInfo("2", "title 2", "Desc 2", "img 2"));
     }
 }

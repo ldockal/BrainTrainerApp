@@ -2,7 +2,7 @@ package com.lukas_tamz.braintrainer.parsers;
 
 import android.content.res.XmlResourceParser;
 
-import com.lukas_tamz.braintrainer.Game;
+import com.lukas_tamz.braintrainer.models.GameInfo;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -13,16 +13,16 @@ import java.io.InputStream;
  * Created by ldockal on 11/17/2017.
  */
 
-public final class GameListParser extends AbstractXmlParser<Game> {
+public final class GameListParser extends AbstractXmlParser<GameInfo> {
 
 
-    private static final String MAIN_TAG = "game";
+    private static final String MAIN_TAG = "gameInfo";
     private static final String ID_TAG = "id";
     private static final String TITLE_TAG = "title";
     private static final String DESC_TAG = "desc";
     private static final String IMAGE_TAG = "image";
 
-    private Game game = new Game();
+    private GameInfo gameInfo = new GameInfo();
 
     public GameListParser(InputStream inputStream) throws XmlPullParserException, IOException {
         super(inputStream);
@@ -36,16 +36,16 @@ public final class GameListParser extends AbstractXmlParser<Game> {
     void handleElementStart(String elementName) throws IOException, XmlPullParserException {
         switch (elementName) {
             case TITLE_TAG:
-                game.setTitle(readText(parser));
+                gameInfo.setTitle(readText(parser));
                 break;
             case ID_TAG:
-                game.setId(readText(parser));
+                gameInfo.setId(readText(parser));
                 break;
             case DESC_TAG:
-                game.setDesc(readText(parser));
+                gameInfo.setDesc(readText(parser));
                 break;
             case IMAGE_TAG:
-                game.setImgName(readText(parser));
+                gameInfo.setImgName(readText(parser));
                 break;
 
         }
@@ -54,15 +54,15 @@ public final class GameListParser extends AbstractXmlParser<Game> {
     @Override
     protected void handleStartDocument() {
         super.handleStartDocument();
-        game = new Game();
+        gameInfo = new GameInfo();
     }
 
     @Override
     void handleElementEnd(String elementName) {
 
         if (elementName.equals(MAIN_TAG)) {
-            objects.add(game);
-            game = new Game();
+            objects.add(gameInfo);
+            gameInfo = new GameInfo();
         }
     }
 }

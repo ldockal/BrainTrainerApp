@@ -1,9 +1,8 @@
 package com.lukas_tamz.braintrainer.parsers;
 
-import android.content.res.XmlResourceParser;
 import android.util.Xml;
 
-import com.lukas_tamz.braintrainer.Game;
+import com.lukas_tamz.braintrainer.models.GameInfo;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,7 +16,7 @@ import java.util.List;
  * Created by ldockal on 11/17/2017.
  */
 
-public abstract class AbstractXmlParser<T extends Game> {
+public abstract class AbstractXmlParser<T extends GameInfo> {
 
     protected XmlPullParser parser;
     protected List<T> objects;

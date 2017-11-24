@@ -1,24 +1,24 @@
-package com.lukas_tamz.braintrainer;
+package com.lukas_tamz.braintrainer.models;
 
 /**
  * Created by ldockal on 11/17/2017.
  */
 
-public class Game {
+public class GameInfo {
 
     private String id;
     private String title;
     private String desc;
     private String imgName;
 
-    public Game(String id, String title, String desc, String imgName) {
+    public GameInfo(String id, String title, String desc, String imgName) {
         this.id = id;
         this.title = title;
         this.desc = desc;
         this.imgName = imgName;
     }
 
-    public Game() {}
+    public GameInfo() {}
 
     public String getTitle() {
         return title;
