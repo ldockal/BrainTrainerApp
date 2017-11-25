@@ -1,6 +1,5 @@
 package com.lukas_tamz.braintrainer.models.shapes;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -11,17 +10,27 @@ import com.lukas_tamz.braintrainer.models.BitmapParam;
  * Created by ldockal on 11/24/2017.
  */
 
-public class GridCell extends Square {
+public class GridCell extends Shape {
 
     private boolean checked;
 
-    public GridCell(int id, BitmapParam bitmapParam, Paint paint, PointF position, int width, boolean checked) {
-        super(id, bitmapParam, paint, position, width);
+    public GridCell(int id, PointF position, int width, int height, Paint paint, ShapeOffset shapeOffset, BitmapParam bitmapParam, boolean checked) {
+        super(id, position, width, height, paint, shapeOffset, bitmapParam);
         this.checked = checked;
     }
 
-    public GridCell(int id, Bitmap texture, PointF position, int width, boolean checked) {
-        super(id, texture, position, width);
+    public GridCell(int id, PointF position, int width, int height, Paint paint, ShapeOffset shapeOffset, boolean checked) {
+        super(id, position, width, height, paint, shapeOffset);
+        this.checked = checked;
+    }
+
+    public GridCell(int id, PointF position, int width, int height, Paint paint, boolean checked) {
+        super(id, position, width, height, paint);
+        this.checked = checked;
+    }
+
+    public GridCell(int id, PointF position, int width, int height, boolean checked) {
+        super(id, position, width, height);
         this.checked = checked;
     }
 

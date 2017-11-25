@@ -62,7 +62,18 @@ public class GridView extends View {
 
     private void generateGrid() {
         //Todo - generate grid
+
+        for (int i = 0; i < dimension.getSize(); i++) {
+
+        }
     }
 
+    public GridDimension getDimension() {
+        return dimension;
+    }
 
+    public void setDimension(GridDimension dimension) {
+        this.dimension = dimension;
+        generateGrid();
+    }
 }

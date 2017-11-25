@@ -56,4 +56,15 @@ public final class BitmapParam {
     public void setPosition(PointF position) {
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("BitmapParam{");
+        sb.append("bitmap=").append(bitmap);
+        sb.append(", width=").append(width);
+        sb.append(", height=").append(height);
+        sb.append(", position=").append(position);
+        sb.append('}');
+        return sb.toString();
+    }
 }
