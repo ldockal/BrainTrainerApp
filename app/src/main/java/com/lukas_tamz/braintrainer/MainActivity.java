@@ -1,12 +1,15 @@
 package com.lukas_tamz.braintrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.lukas_tamz.braintrainer.exceptions.GamesNotFoundException;
@@ -71,8 +74,17 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         if (gameInfoList != null && !gameInfoList.isEmpty()) {
-            CustomListView customListView = new CustomListView(this, R.layout.minigames_list_item, gameInfoList);
-            this.listView.setAdapter(customListView);
+            final CustomListViewAdapter customListViewAdapter = new CustomListViewAdapter(this, R.layout.minigames_list_item, gameInfoList);
+            this.listView.setAdapter(customListViewAdapter);
+            listView.setOnItemClickListener(new ListView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    GameInfo gameInfo = customListViewAdapter.getItem(position);
+                    Intent intent = new Intent(getBaseContext(), GameGridActivity.class);
+                    intent.putExtra(GameInfo.NAME, gameInfo);
+                    startActivity(intent);
+                }
+            });
         } else {
             throw new GamesNotFoundException("Games list is empty");
         }

@@ -1,10 +1,13 @@
 package com.lukas_tamz.braintrainer.models;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * Created by ldockal on 11/24/2017.
  */
 
-public final class GridDimension {
+public final class GridDimension implements Serializable {
 
     private int rowSize;
     private int columnSize;
@@ -38,15 +41,29 @@ public final class GridDimension {
         this.columnSize = columnSize;
     }
 
-    public int getSize() {
-        return rowSize + columnSize;
+    public int getNumberOfCells() {
+        return rowSize * columnSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GridDimension that = (GridDimension) o;
+        return getRowSize() == that.getRowSize() &&
+                getColumnSize() == that.getColumnSize();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getRowSize(), getColumnSize());
     }
 
     @Override
     public String toString() {
-        String sb = "GridDimension{" + "rowSize=" + rowSize +
+        return "GridDimension{" +
+                "rowSize=" + rowSize +
                 ", columnSize=" + columnSize +
                 '}';
-        return sb;
     }
 }

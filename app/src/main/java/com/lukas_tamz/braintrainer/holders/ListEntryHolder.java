@@ -11,9 +11,9 @@ import com.lukas_tamz.braintrainer.R;
  */
 
 public class ListEntryHolder {
-    public ImageView gameImg;
-    public TextView gameTitle;
-    public TextView gameDesc;
+    public final ImageView gameImg;
+    public final TextView gameTitle;
+    public final TextView gameDesc;
 
     public ListEntryHolder(View view) {
         gameDesc = view.findViewById(R.id.gameDesc);

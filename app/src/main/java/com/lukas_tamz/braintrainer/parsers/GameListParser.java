@@ -21,6 +21,7 @@ public final class GameListParser extends AbstractXmlParser<GameInfo> {
     private static final String TITLE_TAG = "title";
     private static final String DESC_TAG = "desc";
     private static final String IMAGE_TAG = "image";
+    private static final String MAX_REPEATS = "maxRepeats";
 
     private GameInfo gameInfo = new GameInfo();
 
@@ -46,6 +47,9 @@ public final class GameListParser extends AbstractXmlParser<GameInfo> {
                 break;
             case IMAGE_TAG:
                 gameInfo.setImgName(readText(parser));
+                break;
+            case MAX_REPEATS:
+                gameInfo.setMaxRepeats(readInt(parser));
                 break;
 
         }

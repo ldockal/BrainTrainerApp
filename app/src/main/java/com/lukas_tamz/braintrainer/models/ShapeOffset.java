@@ -1,4 +1,4 @@
-package com.lukas_tamz.braintrainer.models.shapes;
+package com.lukas_tamz.braintrainer.models;
 
 /**
  * Created by ldockal on 11/24/2017.

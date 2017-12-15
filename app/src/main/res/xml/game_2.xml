@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<game>
-    <type>grid</type>
-    <colums>4</colums>
-    <rows>4</rows>
-    <timer>false</timer>
-</game>

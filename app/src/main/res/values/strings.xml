@@ -8,4 +8,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="actualLevel">Aktualni level</string>
     <string name="actualLevelDefault">1</string>
+    <string name="gameName">Hra:</string>
+    <string name="actualGameLevel">Level:</string>
+    <string name="remainingRepeats">Pocet pokusu:</string>
+    <string name="gameOver">Konec Hry</string>
+    <string name="menu">Menu</string>
+    <string name="score">Score</string>
 </resources>

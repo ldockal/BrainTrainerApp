@@ -69,4 +69,13 @@ public abstract class AbstractXmlParser<T extends GameInfo> {
         }
         return result;
     }
+
+    protected int readInt(XmlPullParser parser) throws IOException, XmlPullParserException {
+        String result = "";
+        if (parser.next() == XmlPullParser.TEXT) {
+            result = parser.getText();
+            parser.nextTag();
+        }
+        return Integer.parseInt(result);
+    }
 }

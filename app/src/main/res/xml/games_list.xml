@@ -7,6 +7,7 @@
             Vyber kosticky v poradi ve kterem se zobrazi.
         </desc>
         <image>memory_grid.png</image>
+        <remainingRepeats>3</remainingRepeats>
     </gameInfo>
     <gameInfo>
         <id>2</id>
@@ -15,5 +16,6 @@
             Vypocitej zadane vyrazy dokud neskonci casovy limit.
         </desc>
         <image>math_calc.png</image>
+        <remainingRepeats>3</remainingRepeats>
     </gameInfo>
 </games>

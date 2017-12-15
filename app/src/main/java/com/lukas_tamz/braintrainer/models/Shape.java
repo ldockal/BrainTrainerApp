@@ -1,4 +1,4 @@
-package com.lukas_tamz.braintrainer.models.shapes;
+package com.lukas_tamz.braintrainer.models;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,8 +6,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-
-import com.lukas_tamz.braintrainer.models.BitmapParam;
 
 /**
  * Created by ldockal on 11/24/2017.
@@ -69,10 +67,10 @@ public abstract class Shape extends BaseModel {
     private void createBorder() {
         this.shapeBorder = new RectF
                 (
-                        this.position.x - width / 2,
-                        this.position.y - height / 2,
-                        this.position.x + width / 2,
-                        this.position.y + height / 2
+                        (this.position.x - width / 2) + shapeOffset.getLeft(),
+                        (this.position.y - height / 2)+ shapeOffset.getTop(),
+                        (this.position.x + width / 2)+ shapeOffset.getRight(),
+                        (this.position.y + height / 2)+ shapeOffset.getBottom()
                 );
     }
 
@@ -89,12 +87,24 @@ public abstract class Shape extends BaseModel {
         return width;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     public int getHeight() {
         return height;
     }
 
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public Paint getPaint() {
         return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
     }
 
     public ShapeOffset getShapeOffset() {
@@ -105,27 +115,15 @@ public abstract class Shape extends BaseModel {
         return bitmapParam;
     }
 
+    public void setBitmapParam(BitmapParam bitmapParam) {
+        this.bitmapParam = bitmapParam;
+    }
+
     public Bitmap getTexture() {
         return texture;
     }
 
     public RectF getShapeBorder() {
         return shapeBorder;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
-
-    public void setBitmapParam(BitmapParam bitmapParam) {
-        this.bitmapParam = bitmapParam;
     }
 }
