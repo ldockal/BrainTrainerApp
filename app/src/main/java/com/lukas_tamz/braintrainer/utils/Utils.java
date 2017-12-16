@@ -1,8 +1,13 @@
 package com.lukas_tamz.braintrainer.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.widget.Toast;
+
+import com.lukas_tamz.braintrainer.MainActivity;
+import com.lukas_tamz.braintrainer.models.GameInfo;
 
 import java.util.Random;
 

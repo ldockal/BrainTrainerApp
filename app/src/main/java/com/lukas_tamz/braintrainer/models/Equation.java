@@ -7,7 +7,7 @@ import java.util.Objects;
  * Created by ldockal on 12/16/2017.
  */
 
-public final class Equation implements Serializable{
+public final class Equation implements Serializable {
 
     private int firstNumber;
     private int lastNumber;
@@ -74,6 +74,6 @@ public final class Equation implements Serializable{
 
     @Override
     public String toString() {
-        return firstNumber + " " + operation + " = " + result;
+        return firstNumber + " " + operation + " " + lastNumber + " = " + result;
     }
 }

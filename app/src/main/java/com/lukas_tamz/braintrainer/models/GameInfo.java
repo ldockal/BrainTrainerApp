@@ -17,6 +17,7 @@ public class GameInfo implements Serializable {
     private String imgName;
     private int maxRepeats;
     private String type;
+    private String instruction;
 
     public GameInfo(String id, String title, String desc, String imgName) {
         this.id = id;
@@ -75,6 +76,14 @@ public class GameInfo implements Serializable {
         this.type = type;
     }
 
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,11 +94,12 @@ public class GameInfo implements Serializable {
                 Objects.equals(getTitle(), gameInfo.getTitle()) &&
                 Objects.equals(getDesc(), gameInfo.getDesc()) &&
                 Objects.equals(getImgName(), gameInfo.getImgName()) &&
-                Objects.equals(getType(), gameInfo.getType());
+                Objects.equals(getType(), gameInfo.getType()) &&
+                Objects.equals(getInstruction(), gameInfo.getInstruction());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDesc(), getImgName(), getMaxRepeats(), getType());
+        return Objects.hash(getId(), getTitle(), getDesc(), getImgName(), getMaxRepeats(), getType(), getInstruction());
     }
 }

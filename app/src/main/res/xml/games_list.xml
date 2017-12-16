@@ -9,6 +9,7 @@
         <image>memory_grid.png</image>
         <remainingRepeats>3</remainingRepeats>
         <type>grid</type>
+        <instruction>Na zacatku kazdeho levelu se zobrazi kosticky a nasledne se skryji, pote je musite vybrat (nezalezi na poradi)</instruction>
     </gameInfo>
     <gameInfo>
         <id>2</id>
@@ -19,5 +20,6 @@
         <image>math_calc.png</image>
         <remainingRepeats>2</remainingRepeats>
         <type>math</type>
+        <instruction>Cilem je rozhodnout zda je rovncie pravdiva ci nikoli do casoveho limitu</instruction>
     </gameInfo>
 </games>

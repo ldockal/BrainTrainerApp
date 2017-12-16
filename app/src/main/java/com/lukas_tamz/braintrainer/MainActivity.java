@@ -1,6 +1,8 @@
 package com.lukas_tamz.braintrainer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -21,10 +24,10 @@ import com.lukas_tamz.braintrainer.utils.Utils;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
+    public static final int REQUEST_CODE_SETTINGS = 1;
     ListView listView;
     List<GameInfo> gameInfoList;
 
@@ -54,12 +57,23 @@ public class MainActivity extends Activity {
         }
         if (item.getItemId() == R.id.options_menu_settings) {
             Utils.displayintToast(this, "settings");
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
         }
         if (item.getItemId() == R.id.options_menu_exit) {
             Utils.displayintToast(this, "exit");
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SETTINGS) {
+            // todo apply changed settings to app
+        }
     }
 
     private void loadComponentsInView() throws GamesNotFoundException {
@@ -81,32 +95,43 @@ public class MainActivity extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     GameInfo gameInfo = customListViewAdapter.getItem(position);
-                    Intent intent = null;
+                    final Intent intent = new Intent();
 
                     if (gameInfo == null) {
                         throw new NullPointerException("game info is null.");
                     }
                     if (gameInfo.getType().equals("grid")) {
-                        intent = new Intent(getBaseContext(), GameGridActivity.class);
+                        intent.setClass(getApplicationContext(), GameGridActivity.class);
+                        //intent = new Intent(getBaseContext(), GameGridActivity.class);
                         intent.putExtra(GameInfo.NAME, gameInfo);
 
                     } else if (gameInfo.getType().equals("math")) {
-                        intent = new Intent(getBaseContext(), MathGameActivity.class);
+                        //intent = new Intent(getBaseContext(), MathGameActivity.class);
+                        intent.setClass(getBaseContext(), MathGameActivity.class);
                         intent.putExtra(GameInfo.NAME, gameInfo);
                     }
 
-                    startActivity(intent);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+
+                    alertDialogBuilder.setTitle(gameInfo.getTitle());
+                    final AlertDialog dialog = alertDialogBuilder
+                            .setMessage(gameInfo.getInstruction())
+                            .setCancelable(false)
+                            .setPositiveButton("Rozumim", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                    startActivity(intent);
+                                }
+                            }).create();
+
+                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                    dialog.show();
+
                 }
             });
         } else {
             throw new GamesNotFoundException("Games list is empty");
         }
 
-    }
-
-    private void dummyInit() {
-        gameInfoList = new ArrayList<>();
-        gameInfoList.add(new GameInfo("1", "title 1", "Desc 1", "img 1"));
-        gameInfoList.add(new GameInfo("2", "title 2", "Desc 2", "img 2"));
     }
 }

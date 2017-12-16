@@ -102,7 +102,7 @@ public class GameGridActivity extends Activity {
         gameNameTextView = linearLayout.findViewById(R.id.gameNameTextView);
         actualLevelTextView = linearLayout.findViewById(R.id.actualLevelTextView);
         maxRepeatsTextView = linearLayout.findViewById(R.id.maxRepeatsTextView);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.timeProgressBar);
 
         String gameName = "Hra: " + gameStatus.getGameName();
         String level = "Level: " + gameStatus.getLevel();

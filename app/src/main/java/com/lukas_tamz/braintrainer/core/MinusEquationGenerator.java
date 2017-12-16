@@ -18,8 +18,13 @@ public class MinusEquationGenerator implements GenerationStrategy {
         num1 = Utils.getNumberInRange(1, 10 * generatorFactor);
         num2 = Utils.getNumberInRange(0, 10 * generatorFactor);
 
-        equation.setFirstNumber(num1);
-        equation.setLastNumber(num2);
+        if (num1 < num2) {
+            equation.setFirstNumber(num2);
+            equation.setLastNumber(num2);
+        } else {
+            equation.setFirstNumber(num1);
+            equation.setLastNumber(num2);
+        }
 
         if (Utils.getNumberInRange(0, 1) == 1) {
             equation.setResult(num1 - num2);

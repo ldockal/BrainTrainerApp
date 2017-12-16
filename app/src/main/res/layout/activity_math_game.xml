@@ -22,7 +22,8 @@
             android:id="@+id/timeProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progress="100" />
 
         <TextView
             android:id="@+id/gameNameTextView"
@@ -50,7 +51,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/equationTextView"
         android:layout_width="285dp"
         android:layout_height="51dp"
         android:layout_marginBottom="8dp"
@@ -110,9 +111,9 @@
         android:text="@string/mathCorrectLabel"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/equationTextView"
+        app:layout_constraintEnd_toEndOf="@+id/equationTextView"
+        app:layout_constraintStart_toStartOf="@+id/equationTextView"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>
