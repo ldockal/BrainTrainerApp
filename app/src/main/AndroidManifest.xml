@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameGridActivity" />
-        <activity android:name=".GameOverActivity"></activity>
+        <activity android:name=".GameOverActivity" />
+        <activity android:name=".MathGameActivity"></activity>
     </application>
 
 </manifest>

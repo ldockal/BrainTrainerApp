@@ -22,7 +22,7 @@ public final class Utils {
         Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
     }
 
-    public static int getNumberInRane(int min, int max) {
+    public static int getNumberInRange(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }

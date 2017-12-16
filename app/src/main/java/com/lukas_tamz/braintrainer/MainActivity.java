@@ -76,12 +76,25 @@ public class MainActivity extends Activity {
         if (gameInfoList != null && !gameInfoList.isEmpty()) {
             final CustomListViewAdapter customListViewAdapter = new CustomListViewAdapter(this, R.layout.minigames_list_item, gameInfoList);
             this.listView.setAdapter(customListViewAdapter);
-            listView.setOnItemClickListener(new ListView.OnItemClickListener(){
+            listView.setOnItemClickListener(new ListView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                     GameInfo gameInfo = customListViewAdapter.getItem(position);
-                    Intent intent = new Intent(getBaseContext(), GameGridActivity.class);
-                    intent.putExtra(GameInfo.NAME, gameInfo);
+                    Intent intent = null;
+
+                    if (gameInfo == null) {
+                        throw new NullPointerException("game info is null.");
+                    }
+                    if (gameInfo.getType().equals("grid")) {
+                        intent = new Intent(getBaseContext(), GameGridActivity.class);
+                        intent.putExtra(GameInfo.NAME, gameInfo);
+
+                    } else if (gameInfo.getType().equals("math")) {
+                        intent = new Intent(getBaseContext(), MathGameActivity.class);
+                        intent.putExtra(GameInfo.NAME, gameInfo);
+                    }
+
                     startActivity(intent);
                 }
             });

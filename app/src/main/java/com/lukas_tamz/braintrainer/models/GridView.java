@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.os.Build;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,6 +33,8 @@ public class GridView extends View {
     private List<Integer> idsToSelect = new ArrayList<>();
     private GridDimension dimension = new GridDimension(3, 3);
     private GameGridActivity gameGridActivity;
+    private boolean gridTouchEnabled = true;
+    private boolean clearCanvas = false;
 
 
     public GridView(Context context) {
@@ -60,71 +64,79 @@ public class GridView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (dimension == null || !dimension.isCorrectSet()) {
-            throw new GridDimensionExcepion(dimension + " is not set correctly");
-        }
-        if (grid == null || grid.isEmpty()) {
-            generateGrid();
+        if (clearCanvas) {
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            clearCanvas = false;
+        } else {
+            if (dimension == null || !dimension.isCorrectSet()) {
+                throw new GridDimensionExcepion(dimension + " is not set correctly");
+            }
+            if (grid == null || grid.isEmpty()) {
+                generateGrid();
+            }
+
+            for (GridCell cell : grid) {
+                cell.draw(canvas);
+            }
         }
 
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-
-        for (GridCell cell : grid) {
-            cell.draw(canvas);
-        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (gridTouchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
 //            int column = (int) (event.getX() / cellWidth);
 //            int row = (int) (event.getY() / cellWidth);
 //            Log.i(TAG, "onTouchEvent: col: " + column + " row: " + row);
 //            invalidate();
 
-            for (GridCell cell : grid) {
+                for (GridCell cell : grid) {
 
-                if (cell.isPointIn(new PointF(event.getX(), event.getY()))) {
-                    Log.i(TAG, "cell with id : " + cell.getId() + " was clicked");
+                    if (cell.isPointIn(new PointF(event.getX(), event.getY()))) {
+                        Log.i(TAG, "cell with id : " + cell.getId() + " was clicked");
 
-                    if (!cell.isClicked()) {
-                        if (idsToSelect.contains(cell.getId())) {
-
-                            Log.i(TAG, "clicked cell with id : " + cell.getId() + " is in list");
-                            cell.changeColorTo(Color.GREEN);
-                            idsToSelect.remove(idsToSelect.indexOf(cell.getId()));
-
-                        } else {
-                            Log.i(TAG, "clicked cell with id : " + cell.getId() + " is not in list");
-                            cell.changeColorTo(Color.RED);
-                            gameGridActivity.decreaseRepeats();
+                        if (!cell.isClicked()) {
+                            if (cell.isCellIsInIdSequence()) {
+                                idsToSelect.remove(Integer.valueOf(cell.getId()));
+                            } else {
+                                gameGridActivity.decreaseRepeats();
+                            }
+                            cell.setClicked(true);
+                            break;
                         }
-
-                        cell.setClicked(true);
                     }
                 }
-            }
 
-            if (idsToSelect.isEmpty()) {
-                Log.i(TAG, "level ended");
-                gameGridActivity.handleNextLevel();
-                return true;
-            }
+                invalidate();
 
-            invalidate();
+                if (idsToSelect.isEmpty()) {
+                    //clear canvas
+                    clearCanvas = true;
+                    invalidate();
+
+                    //todo remove this comment this is only for testing
+                    gameGridActivity.handleNextLevel();
+                    return true;
+                }
+
+
+            }
         }
 
         return true;
     }
 
 
-    public void startNewLevel() {
-
+    public void startLevel() {
+        clearCanvas = false;
+        generateGrid();
+        showCorrectCells();
     }
 
     private void generateGrid() {
 
+        int cellCout = 1;
         int gap = 10;
         int actualCol = 1;
         int actualRow = 1;
@@ -137,7 +149,13 @@ public class GridView extends View {
 
         while (actualRow <= dimension.getRowSize()) {
 
-            grid.add(new GridCell(actualCol, new PointF(posX, posY), cellWidth, paint, new ShapeOffset()));
+            GridCell cell = new GridCell(actualCol, new PointF(posX, posY), cellWidth, paint, new ShapeOffset());
+            if (idsToSelect.contains(cellCout)) {
+                cell.setCellIsInIdSequence(true);
+            } else {
+                cell.setCellIsInIdSequence(false);
+            }
+            grid.add(cell);
 
             if (actualCol % dimension.getColumnSize() == 0) {
                 actualRow++;
@@ -148,16 +166,33 @@ public class GridView extends View {
             }
 
             actualCol++;
+            cellCout++;
         }
     }
 
-    private void showCells() {
-
-        for (Integer id : idsToSelect) {
-            grid.get(id).changeColorTo(Color.GREEN);
+    private void displayCorrectCell(boolean display) {
+        for (GridCell gridCell : grid) {
+            if (gridCell.isCellIsInIdSequence()) {
+                gridCell.setClicked(display);
+            }
         }
+    }
 
+    private void showCorrectCells() {
+        gridTouchEnabled = false;
+        displayCorrectCell(true);
         invalidate();
+
+        // wait some time and then hide correct cells back
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                displayCorrectCell(false);
+                gridTouchEnabled = true;
+                invalidate();
+            }
+        }, 1400);
     }
 
     public GridDimension getDimension() {
@@ -166,7 +201,6 @@ public class GridView extends View {
 
     public void setDimension(GridDimension dimension) {
         this.dimension = dimension;
-        generateGrid();
     }
 
     public GameGridActivity getGameGridActivity() {

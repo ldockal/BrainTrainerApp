@@ -13,8 +13,9 @@ public class GridCell extends Shape {
 
     private boolean clicked;
     private int correctColor = Color.GREEN;
-    private int incoectColor = Color.RED;
-    private int firstStateColor = Color.argb(255, 26, 127, 146);
+    private int incorrectColor = Color.RED;
+    private int defaultColor = Color.argb(255, 26, 127, 146);
+    private boolean cellIsInIdSequence;
 
 
     public GridCell(int id, PointF position, int width, Paint paint, ShapeOffset shapeOffset, BitmapParam bitmapParam) {
@@ -36,6 +37,13 @@ public class GridCell extends Shape {
 
     @Override
     public void draw(Canvas canvas) {
+        if (!isClicked()) {
+            changeColorTo(defaultColor);
+        } else if (isCellIsInIdSequence()) {
+            changeColorTo(correctColor);
+        } else {
+            changeColorTo(incorrectColor);
+        }
         super.draw(canvas);
     }
 
@@ -47,11 +55,42 @@ public class GridCell extends Shape {
         this.clicked = clicked;
     }
 
-    public void changeColorTo(int oolor) {
+    public boolean isCellIsInIdSequence() {
+        return cellIsInIdSequence;
+    }
+
+    public void setCellIsInIdSequence(boolean cellIsInIdSequence) {
+        this.cellIsInIdSequence = cellIsInIdSequence;
+    }
+
+    public int getCorrectColor() {
+        return correctColor;
+    }
+
+    public void setCorrectColor(int correctColor) {
+        this.correctColor = correctColor;
+    }
+
+    public int getIncorrectColor() {
+        return incorrectColor;
+    }
+
+    public void setIncorrectColor(int incorrectColor) {
+        this.incorrectColor = incorrectColor;
+    }
+
+    public int getDefaultColor() {
+        return defaultColor;
+    }
+
+    public void setDefaultColor(int defaultColor) {
+        this.defaultColor = defaultColor;
+    }
+
+    private void changeColorTo(int oolor) {
         Paint paint = new Paint();
         paint.setColor(oolor);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         this.paint = paint;
     }
-
 }

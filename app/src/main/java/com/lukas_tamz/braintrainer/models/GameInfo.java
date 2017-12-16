@@ -16,6 +16,7 @@ public class GameInfo implements Serializable {
     private String desc;
     private String imgName;
     private int maxRepeats;
+    private String type;
 
     public GameInfo(String id, String title, String desc, String imgName) {
         this.id = id;
@@ -66,6 +67,14 @@ public class GameInfo implements Serializable {
         this.maxRepeats = maxRepeats;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,22 +84,12 @@ public class GameInfo implements Serializable {
                 Objects.equals(getId(), gameInfo.getId()) &&
                 Objects.equals(getTitle(), gameInfo.getTitle()) &&
                 Objects.equals(getDesc(), gameInfo.getDesc()) &&
-                Objects.equals(getImgName(), gameInfo.getImgName());
+                Objects.equals(getImgName(), gameInfo.getImgName()) &&
+                Objects.equals(getType(), gameInfo.getType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDesc(), getImgName(), getMaxRepeats());
-    }
-
-    @Override
-    public String toString() {
-        return "GameInfo{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", desc='" + desc + '\'' +
-                ", imgName='" + imgName + '\'' +
-                ", maxRepeats=" + maxRepeats +
-                '}';
+        return Objects.hash(getId(), getTitle(), getDesc(), getImgName(), getMaxRepeats(), getType());
     }
 }

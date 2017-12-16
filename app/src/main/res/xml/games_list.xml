@@ -8,6 +8,7 @@
         </desc>
         <image>memory_grid.png</image>
         <remainingRepeats>3</remainingRepeats>
+        <type>grid</type>
     </gameInfo>
     <gameInfo>
         <id>2</id>
@@ -16,6 +17,7 @@
             Vypocitej zadane vyrazy dokud neskonci casovy limit.
         </desc>
         <image>math_calc.png</image>
-        <remainingRepeats>3</remainingRepeats>
+        <remainingRepeats>2</remainingRepeats>
+        <type>math</type>
     </gameInfo>
 </games>

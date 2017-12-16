@@ -14,4 +14,7 @@
     <string name="gameOver">Konec Hry</string>
     <string name="menu">Menu</string>
     <string name="score">Score</string>
+    <string name="mathCorrectLabel">Je to spravne?</string>
+    <string name="correctButton">Spravne</string>
+    <string name="incorrectButton">Spatne</string>
 </resources>

@@ -11,29 +11,37 @@ import com.lukas_tamz.braintrainer.models.GameStatus;
 
 public class GameOverActivity extends Activity {
 
+    public static final String SCORE = "Score:";
     private TextView gameNameTextView;
     private TextView scoreTextView;
+    private TextView scoreLabel;
     private Button menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_game_over);
+
         initComponents();
 
         Intent intent = getIntent();
         GameStatus status = (GameStatus) intent.getSerializableExtra(GameStatus.NAME);
 
-        gameNameTextView.setText(status.getGameName());
-        scoreTextView.setText(status.getLevel());
-
-        setContentView(R.layout.activity_game_over);
+        if (status != null) {
+            gameNameTextView.setText(status.getGameName());
+            scoreTextView.setText(String.valueOf(status.getLevel()));
+        } else {
+            throw new NullPointerException("recived game status is null.");
+        }
     }
 
     private void initComponents() {
         gameNameTextView = findViewById(R.id.gameNameTextView);
         scoreTextView = findViewById(R.id.scoreTextView);
         menuButton = findViewById(R.id.menuButton);
+        scoreLabel = findViewById(R.id.scoreLabel);
+        scoreLabel.setText(SCORE);
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
