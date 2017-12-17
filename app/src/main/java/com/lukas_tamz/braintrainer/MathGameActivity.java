@@ -52,6 +52,7 @@ public class MathGameActivity extends Activity {
         Intent intent = getIntent();
         GameInfo gameInfo = (GameInfo) intent.getSerializableExtra(GameInfo.NAME);
         gameStatus = new GameStatus(gameInfo.getTitle(), 1, gameInfo.getMaxRepeats());
+        gameStatus.setGameId(gameInfo.getId());
 
         loadAndInitComponents();
         generateNewEquation();

@@ -42,7 +42,7 @@ public final class GameListParser extends AbstractXmlParser<GameInfo> {
                 gameInfo.setTitle(readText(parser));
                 break;
             case ID_TAG:
-                gameInfo.setId(readText(parser));
+                gameInfo.setId(readInt(parser));
                 break;
             case DESC_TAG:
                 gameInfo.setDesc(readText(parser));

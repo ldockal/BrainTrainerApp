@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.lukas_tamz.braintrainer.db.dao.api.ScoreDao;
+import com.lukas_tamz.braintrainer.db.dao.impl.ScoreDaoImpl;
 import com.lukas_tamz.braintrainer.models.GameStatus;
 
 public class GameOverActivity extends Activity {
@@ -16,13 +18,14 @@ public class GameOverActivity extends Activity {
     private TextView scoreTextView;
     private TextView scoreLabel;
     private Button menuButton;
+    private ScoreDao scoreDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_game_over);
 
+        scoreDao = new ScoreDaoImpl(getApplicationContext());
         initComponents();
 
         Intent intent = getIntent();
@@ -31,6 +34,12 @@ public class GameOverActivity extends Activity {
         if (status != null) {
             gameNameTextView.setText(status.getGameName());
             scoreTextView.setText(String.valueOf(status.getLevel()));
+            /*
+            ScoreEntity scoreEntity = new ScoreEntity();
+            scoreEntity.setGameId(status.getGameId());
+            scoreEntity.setScore(status.getLevel());
+            scoreDao.saveScore(scoreEntity)
+            */
         } else {
             throw new NullPointerException("recived game status is null.");
         }

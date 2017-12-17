@@ -11,6 +11,7 @@ public class GameStatus implements Serializable {
 
     public static final String NAME = "gameStatus";
 
+    private int gameId;
     private String gameName;
     private int level;
     private int remainingRepeats;
@@ -44,18 +45,27 @@ public class GameStatus implements Serializable {
         this.remainingRepeats--;
     }
 
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GameStatus that = (GameStatus) o;
-        return getLevel() == that.getLevel() &&
-                getRemainingRepeats() == that.getRemainingRepeats() &&
-                Objects.equals(getGameName(), that.getGameName());
+        GameStatus status = (GameStatus) o;
+        return getGameId() == status.getGameId() &&
+                getLevel() == status.getLevel() &&
+                getRemainingRepeats() == status.getRemainingRepeats() &&
+                Objects.equals(getGameName(), status.getGameName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGameName(), getLevel(), getRemainingRepeats());
+        return Objects.hash(getGameId(), getGameName(), getLevel(), getRemainingRepeats());
     }
 }

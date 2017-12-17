@@ -11,7 +11,7 @@ public class GameInfo implements Serializable {
 
     public static final String NAME = "gameInfo";
 
-    private String id;
+    private int id;
     private String title;
     private String desc;
     private String imgName;
@@ -19,7 +19,7 @@ public class GameInfo implements Serializable {
     private String type;
     private String instruction;
 
-    public GameInfo(String id, String title, String desc, String imgName) {
+    public GameInfo(int id, String title, String desc, String imgName) {
         this.id = id;
         this.title = title;
         this.desc = desc;
@@ -52,11 +52,11 @@ public class GameInfo implements Serializable {
         this.imgName = imgName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

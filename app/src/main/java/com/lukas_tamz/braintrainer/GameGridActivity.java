@@ -49,6 +49,7 @@ public class GameGridActivity extends Activity {
 
         if (receivedGameInfo != null) {
             gameStatus = new GameStatus(receivedGameInfo.getTitle(), 1, receivedGameInfo.getMaxRepeats());
+            gameStatus.setGameId(receivedGameInfo.getId());
             loadAndInitComponents();
 
             gridView = findViewById(R.id.gridView);
