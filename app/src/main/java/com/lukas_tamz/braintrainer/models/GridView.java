@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -16,6 +15,7 @@ import android.view.View;
 
 import com.lukas_tamz.braintrainer.GameGridActivity;
 import com.lukas_tamz.braintrainer.exceptions.GridDimensionExcepion;
+import com.lukas_tamz.braintrainer.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +28,16 @@ import static android.content.ContentValues.TAG;
 
 public class GridView extends View {
 
-    private static final int cellWidth = 100;
+    private int cellWidth = 100;
     private List<GridCell> grid = new ArrayList<>();
     private List<Integer> idsToSelect = new ArrayList<>();
     private GridDimension dimension = new GridDimension(3, 3);
     private GameGridActivity gameGridActivity;
     private boolean gridTouchEnabled = true;
     private boolean clearCanvas = false;
-
+    private int canvasWidth;
+    private int canvasHeight;
+    private SharedPreferenceHelper preferenceHelper;
 
     public GridView(Context context) {
         super(context);
@@ -58,6 +60,8 @@ public class GridView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        this.canvasHeight = h;
+        this.canvasWidth = w;
     }
 
     @Override
@@ -65,7 +69,9 @@ public class GridView extends View {
         super.onDraw(canvas);
 
         if (clearCanvas) {
-            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            int color = Color.argb(255, 128, 223, 242);
+
+            canvas.drawColor(color);
             clearCanvas = false;
         } else {
             if (dimension == null || !dimension.isCorrectSet()) {
@@ -86,11 +92,6 @@ public class GridView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         if (gridTouchEnabled) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//            int column = (int) (event.getX() / cellWidth);
-//            int row = (int) (event.getY() / cellWidth);
-//            Log.i(TAG, "onTouchEvent: col: " + column + " row: " + row);
-//            invalidate();
-
                 for (GridCell cell : grid) {
 
                     if (cell.isPointIn(new PointF(event.getX(), event.getY()))) {
@@ -114,8 +115,6 @@ public class GridView extends View {
                     //clear canvas
                     clearCanvas = true;
                     invalidate();
-
-                    //todo remove this comment this is only for testing
                     gameGridActivity.handleNextLevel();
                     return true;
                 }
@@ -130,6 +129,7 @@ public class GridView extends View {
 
     public void startLevel() {
         clearCanvas = false;
+        grid = new ArrayList<>();
         generateGrid();
         showCorrectCells();
     }
@@ -140,6 +140,12 @@ public class GridView extends View {
         int gap = 10;
         int actualCol = 1;
         int actualRow = 1;
+
+        if ((dimension.getColumnSize() == 5 && dimension.getColumnSize() == 5) || (dimension.getColumnSize() == 8 || dimension.getRowSize() == 8)) {
+
+            cellWidth = (int) (cellWidth * 0.70);
+        }
+
         float posX = cellWidth + gap;
         float posY = cellWidth + gap;
 

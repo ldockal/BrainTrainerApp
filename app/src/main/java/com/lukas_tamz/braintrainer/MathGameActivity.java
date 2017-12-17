@@ -1,9 +1,11 @@
 package com.lukas_tamz.braintrainer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -13,9 +15,11 @@ import com.lukas_tamz.braintrainer.core.EquationGeneratorContext;
 import com.lukas_tamz.braintrainer.core.MinusEquationGenerator;
 import com.lukas_tamz.braintrainer.core.MultiplyEquationGenerator;
 import com.lukas_tamz.braintrainer.core.PlusEquationGenerator;
+import com.lukas_tamz.braintrainer.holders.ConstantsHolder;
 import com.lukas_tamz.braintrainer.models.Equation;
 import com.lukas_tamz.braintrainer.models.GameInfo;
 import com.lukas_tamz.braintrainer.models.GameStatus;
+import com.lukas_tamz.braintrainer.utils.SharedPreferenceHelper;
 import com.lukas_tamz.braintrainer.utils.Utils;
 
 public class MathGameActivity extends Activity {
@@ -36,11 +40,14 @@ public class MathGameActivity extends Activity {
     private EquationGeneratorContext equationGenerator;
     private int maxSecToSolveEquation = 12;
     private CountDownTimer countDownTimer;
+    private SharedPreferenceHelper preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_game);
+
+        preferenceHelper = new SharedPreferenceHelper(getApplicationContext(), ConstantsHolder.SETTINGS_PREF, Context.MODE_PRIVATE);
 
         Intent intent = getIntent();
         GameInfo gameInfo = (GameInfo) intent.getSerializableExtra(GameInfo.NAME);
@@ -67,6 +74,14 @@ public class MathGameActivity extends Activity {
         if (equation.isCorrect() && button.equals(CORRECT) || !equation.isCorrect() && button.equals(INCORRECT)) {
             increaseLevel();
         } else {
+            boolean useVibrator = preferenceHelper.getSharedPreferenceBoolean(ConstantsHolder.SETTINGS_PREF_VIBRATION, false);
+
+            if (useVibrator) {
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (vibrator != null) {
+                    vibrator.vibrate(500);
+                }
+            }
             decreaseMaxReps();
         }
         clearCountDown();
@@ -80,7 +95,6 @@ public class MathGameActivity extends Activity {
     }
 
     private void clearCountDown() {
-        countDownTimer.cancel();
         countDownTimer = null;
     }
 

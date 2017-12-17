@@ -1,18 +1,23 @@
 package com.lukas_tamz.braintrainer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lukas_tamz.braintrainer.holders.ConstantsHolder;
 import com.lukas_tamz.braintrainer.models.GameInfo;
 import com.lukas_tamz.braintrainer.models.GameStatus;
 import com.lukas_tamz.braintrainer.models.GridDimension;
 import com.lukas_tamz.braintrainer.models.GridView;
+import com.lukas_tamz.braintrainer.utils.SharedPreferenceHelper;
 import com.lukas_tamz.braintrainer.utils.Utils;
 
 import java.util.ArrayList;
@@ -31,13 +36,14 @@ public class GameGridActivity extends Activity {
     private ProgressBar progressBar;
     private GameStatus gameStatus;
     private GridView gridView;
-
+    private SharedPreferenceHelper preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_grid);
 
+        preferenceHelper = new SharedPreferenceHelper(getApplicationContext(), ConstantsHolder.SETTINGS_PREF, Context.MODE_PRIVATE);
         Intent intent = getIntent();
         GameInfo receivedGameInfo = (GameInfo) intent.getSerializableExtra(GameInfo.NAME);
 
@@ -62,19 +68,33 @@ public class GameGridActivity extends Activity {
         String actLevel = "Level: " + String.valueOf(gameStatus.getLevel());
         actualLevelTextView.setText(actLevel);
 
-        // every second level increase grid until level 5
-        if (gameStatus.getLevel() < 5 && gameStatus.getLevel() % 2 == 0) {
-            gridView.setDimension(new GridDimension(
-                    gridView.getDimension().getRowSize() + 1,
-                    gridView.getDimension().getColumnSize() + 1));
-        }
-        gridView.setIdsToSelect(generateIdsToSelect());
-        gridView.startLevel();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // every second level increase grid until level 5
+                if (gameStatus.getLevel() < 5 && gameStatus.getLevel() % 2 == 0) {
+                    gridView.setDimension(new GridDimension(
+                            gridView.getDimension().getRowSize() + 1,
+                            gridView.getDimension().getColumnSize() + 1));
+                }
+                gridView.setIdsToSelect(generateIdsToSelect());
+                gridView.startLevel();
+            }
+        }, 1000);
+
+
     }
 
     public void decreaseRepeats() {
         gameStatus.decreaseRepeats();
-
+        boolean useVibrator = preferenceHelper.getSharedPreferenceBoolean(ConstantsHolder.SETTINGS_PREF_VIBRATION, false);
+        if (useVibrator) {
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            if (vibrator != null) {
+                vibrator.vibrate(500);
+            }
+        }
         if (gameStatus.getRemainingRepeats() == 0) {
             // game over
             Intent intent = new Intent(getBaseContext(), GameOverActivity.class);

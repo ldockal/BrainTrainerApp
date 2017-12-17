@@ -27,10 +27,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    public static final int REQUEST_CODE_SETTINGS = 1;
     ListView listView;
     List<GameInfo> gameInfoList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,33 +50,21 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.options_menu_about) {
-            Utils.displayintToast(this, "about");
-        }
         if (item.getItemId() == R.id.options_menu_settings) {
             Utils.displayintToast(this, "settings");
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+            startActivity(intent);
         }
         if (item.getItemId() == R.id.options_menu_exit) {
             Utils.displayintToast(this, "exit");
+            System.exit(0);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_SETTINGS) {
-            // todo apply changed settings to app
-        }
-    }
-
     private void loadComponentsInView() throws GamesNotFoundException {
         this.listView = findViewById(R.id.gameList);
-        //dummyInit();
 
         try {
             XmlResourceParser xmlResourceParser = getResources().getXml(R.xml.games_list);
@@ -126,7 +112,6 @@ public class MainActivity extends Activity {
 
                     dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                     dialog.show();
-
                 }
             });
         } else {
