@@ -10,14 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "gamescoredb";
+    private static final String DATABASE_NAME = "scoreDB";
     private static final int DATABASE_VERSION = 1;
-    private static final String CREATE_SCORE_TABLE = "CREATE TABLE IF NOT EXISTS" + GameScoreContract.ScoreEntry.TABLE_NAME + " (" +
+    private static final String CREATE_SCORE_TABLE = "CREATE TABLE IF NOT EXISTS " + GameScoreContract.ScoreEntry.TABLE_NAME + " (" +
             GameScoreContract.ScoreEntry._ID + " INTEGER PRIMARY KEY," +
             GameScoreContract.ScoreEntry.COLUMN_NAME_GAME_ID + " INTEGER, " +
-            GameScoreContract.ScoreEntry.COLUMN_NAME_TITLE + " TEXT)";
+            GameScoreContract.ScoreEntry.COLUMN_NAME_LEVEL + " INTEGER)";
 
-    private static final String SQL_SCORE_ENTRY =
+    private static final String SQL_DELETE_SCORE_ENTRY =
             "DROP TABLE IF EXISTS " + GameScoreContract.ScoreEntry.TABLE_NAME;
 
     private static DatabaseHelper instance;
@@ -32,6 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    public void deleteAllTables(SQLiteDatabase database) {
+        database.execSQL(SQL_DELETE_SCORE_ENTRY);
+    }
+
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
@@ -44,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_SCORE_ENTRY);
+        deleteAllTables(db);
         onCreate(db);
     }
 }

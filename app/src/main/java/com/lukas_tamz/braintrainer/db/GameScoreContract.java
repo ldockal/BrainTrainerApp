@@ -13,7 +13,7 @@ public final class GameScoreContract {
 
     public static class ScoreEntry implements BaseColumns {
         public static final String TABLE_NAME = "score";
-        public static final String COLUMN_NAME_TITLE = "level";
+        public static final String COLUMN_NAME_LEVEL = "level";
         public static final String COLUMN_NAME_GAME_ID = "gameId";
     }
 }

@@ -28,7 +28,8 @@ public class ScoreDaoImpl extends BaseDao implements ScoreDao {
 
         Cursor cursor = database.query(GameScoreContract.ScoreEntry.TABLE_NAME,
                 new String[]{GameScoreContract.ScoreEntry._ID,
-                        GameScoreContract.ScoreEntry.COLUMN_NAME_TITLE},
+                        GameScoreContract.ScoreEntry.COLUMN_NAME_GAME_ID,
+                        GameScoreContract.ScoreEntry.COLUMN_NAME_LEVEL},
                 null, null, null, null, null);
 
         while (cursor.moveToNext()) {
@@ -48,7 +49,7 @@ public class ScoreDaoImpl extends BaseDao implements ScoreDao {
     @Override
     public long saveScore(ScoreEntity scoreEntity) {
         ContentValues values = new ContentValues();
-        values.put(GameScoreContract.ScoreEntry.COLUMN_NAME_TITLE, scoreEntity.getScore());
+        values.put(GameScoreContract.ScoreEntry.COLUMN_NAME_LEVEL, scoreEntity.getScore());
         values.put(GameScoreContract.ScoreEntry.COLUMN_NAME_GAME_ID, scoreEntity.getGameId());
         return database.insert(GameScoreContract.ScoreEntry.TABLE_NAME, null, values);
     }

@@ -30,4 +30,8 @@ public abstract class BaseDao {
             databaseHelper = DatabaseHelper.getHelper(context);
         database = databaseHelper.getWritableDatabase();
     }
+
+    public void deleteAllTables() {
+        databaseHelper.deleteAllTables(database);
+    }
 }

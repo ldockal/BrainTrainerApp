@@ -136,14 +136,14 @@ public class GridView extends View {
 
     private void generateGrid() {
 
-        int cellCout = 1;
+        int cellCount = 1;
         int gap = 10;
         int actualCol = 1;
         int actualRow = 1;
 
-        if ((dimension.getColumnSize() == 5 && dimension.getColumnSize() == 5) || (dimension.getColumnSize() == 8 || dimension.getRowSize() == 8)) {
+        if ((dimension.getColumnSize() == 5 && dimension.getColumnSize() == 5)) {
 
-            cellWidth = (int) (cellWidth * 0.70);
+            cellWidth = 75;
         }
 
         float posX = cellWidth + gap;
@@ -156,7 +156,7 @@ public class GridView extends View {
         while (actualRow <= dimension.getRowSize()) {
 
             GridCell cell = new GridCell(actualCol, new PointF(posX, posY), cellWidth, paint, new ShapeOffset());
-            if (idsToSelect.contains(cellCout)) {
+            if (idsToSelect.contains(cellCount)) {
                 cell.setCellIsInIdSequence(true);
             } else {
                 cell.setCellIsInIdSequence(false);
@@ -172,7 +172,7 @@ public class GridView extends View {
             }
 
             actualCol++;
-            cellCout++;
+            cellCount++;
         }
     }
 
