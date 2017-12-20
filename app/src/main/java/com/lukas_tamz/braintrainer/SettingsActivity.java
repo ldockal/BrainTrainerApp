@@ -38,7 +38,7 @@ public class SettingsActivity extends Activity {
 
                 preferenceHelper.setSharedPreferenceBoolean(ConstantsHolder.SETTINGS_PREF_VIBRATION, vibration);
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MiniGamesActivity.class);
                 startActivity(intent);
             }
         });

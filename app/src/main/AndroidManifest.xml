@@ -3,7 +3,6 @@
     package="com.lukas_tamz.braintrainer">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -20,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MiniGamesActivity" />
         <activity android:name=".GameGridActivity" />
         <activity android:name=".GameOverActivity" />
         <activity android:name=".MathGameActivity" />

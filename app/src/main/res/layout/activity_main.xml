@@ -6,16 +6,78 @@
     android:layout_height="match_parent"
     tools:context="com.lukas_tamz.braintrainer.MainActivity">
 
-    <ListView
-        android:id="@+id/gameList"
-        android:layout_width="368dp"
-        android:layout_height="503dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="331dp"
+        android:layout_height="324dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953">
+
+        <Button
+            android:id="@+id/gamesButton"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/holo_orange_light"
+            android:onClick="gotoGames"
+            android:text="Hrat"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/holo_orange_light"
+            android:onClick="gotoSettings"
+            android:text="Nastaveni"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/scoreButton"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/holo_orange_light"
+            android:onClick="gotoScore"
+            android:text="Celkove score"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/holo_orange_light"
+            android:onClick="exit"
+            android:text="Exit"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="176dp"
+        android:layout_height="149dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/brain"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

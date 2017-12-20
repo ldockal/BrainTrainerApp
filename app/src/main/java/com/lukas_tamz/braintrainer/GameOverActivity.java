@@ -57,7 +57,7 @@ public class GameOverActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // go to main activity
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                Intent intent = new Intent(getBaseContext(), MiniGamesActivity.class);
                 startActivity(intent);
             }
         });
