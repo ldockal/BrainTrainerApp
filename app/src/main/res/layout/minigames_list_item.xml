@@ -17,8 +17,7 @@
         <ImageView
             android:id="@+id/gameImg"
             android:layout_width="99dp"
-            android:layout_height="86dp"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_height="86dp" />
 
     </LinearLayout>
 

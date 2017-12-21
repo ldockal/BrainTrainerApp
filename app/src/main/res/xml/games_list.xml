@@ -6,7 +6,7 @@
         <desc>
             Vyber kosticky v poradi ve kterem se zobrazi.
         </desc>
-        <image>memory_grid.png</image>
+        <image>grid</image>
         <remainingRepeats>3</remainingRepeats>
         <type>grid</type>
         <instruction>Na zacatku kazdeho levelu se zobrazi kosticky a nasledne se skryji, pote je musite vybrat (nezalezi na poradi)</instruction>
@@ -17,7 +17,7 @@
         <desc>
             Vypocitej zadane vyrazy dokud neskonci casovy limit.
         </desc>
-        <image>math_calc.png</image>
+        <image>math</image>
         <remainingRepeats>2</remainingRepeats>
         <type>math</type>
         <instruction>Cilem je rozhodnout zda je rovncie pravdiva ci nikoli do casoveho limitu</instruction>

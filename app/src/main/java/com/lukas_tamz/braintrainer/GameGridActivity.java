@@ -79,7 +79,7 @@ public class GameGridActivity extends Activity {
                             gridView.getDimension().getRowSize() + 1,
                             gridView.getDimension().getColumnSize() + 1));
                 }
-                gridView.setIdsToSelect(generateIdsToSelect());
+                gridView.setIdsToSelect(generateIdsToSelect(gameStatus.getLevel() + 1));
                 gridView.startLevel();
             }
         }, 1000);
@@ -134,10 +134,9 @@ public class GameGridActivity extends Activity {
         maxRepeatsTextView.setText(repeats);
     }
 
-    private List<Integer> generateIdsToSelect() {
+    private List<Integer> generateIdsToSelect(int idsToGenerate) {
         List<Integer> toReturn = new ArrayList<>();
-        // todo get this number dynamically based on current level
-        int idsToGenerate = 4;
+
         int totalCells = gridView.getDimension().getNumberOfCells();
 
         while (idsToGenerate > 0) {
@@ -156,7 +155,7 @@ public class GameGridActivity extends Activity {
 
     private void prepareInitialLevel() {
         gridView.setDimension(new GridDimension(ROW_SIZE, COLUMN_SIZE));
-        gridView.setIdsToSelect(generateIdsToSelect());
+        gridView.setIdsToSelect(generateIdsToSelect(2));
         gridView.startLevel();
     }
 }
