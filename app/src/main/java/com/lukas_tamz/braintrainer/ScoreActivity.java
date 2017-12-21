@@ -82,6 +82,11 @@ public class ScoreActivity extends Activity {
         startActivity(intent);
     }
 
+    public void clearScoreView() {
+        for (TextView textView : scorePositions) {
+            textView.setText("");
+        }
+    }
     public void loadComponents() {
         scorePositions = new ArrayList<>();
 
@@ -98,6 +103,7 @@ public class ScoreActivity extends Activity {
         gamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                clearScoreView();
                 SimpleObject<Integer> simpleObject = games.get(position);
                 List<ScoreEntity> scoreEntities = scoreDao.getScoresByGameId(simpleObject.getId());
 
