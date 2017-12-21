@@ -47,11 +47,10 @@ public class MiniGamesActivity extends Activity {
         StringBuilder builder = new StringBuilder();
 
         for (GameInfo gameInfo : games) {
-            builder.append("id")
-                    .append(gameInfo.getId())
-                    .append("|")
+            builder.append(gameInfo.getId())
+                    .append("//")
                     .append(gameInfo.getTitle())
-                    .append("|")
+                    .append("//")
                     .append("::");
         }
 

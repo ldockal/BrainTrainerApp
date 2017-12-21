@@ -30,7 +30,7 @@ public class ScoreDaoImpl extends BaseDao implements ScoreDao {
                 new String[]{GameScoreContract.ScoreEntry._ID,
                         GameScoreContract.ScoreEntry.COLUMN_NAME_GAME_ID,
                         GameScoreContract.ScoreEntry.COLUMN_NAME_LEVEL},
-                null, null, null, null, null);
+                null, null, null, null, GameScoreContract.ScoreEntry.COLUMN_NAME_LEVEL);
 
         while (cursor.moveToNext()) {
             ScoreEntity score = new ScoreEntity();
